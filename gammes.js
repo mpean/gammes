@@ -191,12 +191,12 @@ var Instru = Class.extend({
 		};
 	},
 	renderRaphaelPositions : function(note, gamme,x,y){		
-		var width = 900;
-		var height = 200;
+		var width = 800;
+		var height = 140;
 		var positions =  this.positions(note, gamme);			
 		var tabFrets = this.calculateFrets();
 		var paper = Raphael(x, y, width, height);	
-		var tour = paper.rect(0, 0, width, height);
+		//var tour = paper.rect(0, 0, width, height);
 		
 		var stringNotewidth = 20;
 		var caseXWidth = 60;
@@ -211,15 +211,15 @@ var Instru = Class.extend({
 		var repereRadius = 2;
 		var repereColor = "#000";
 		var repereBorderColor = "#FFF";	
-		var headHeight = 50;
+		var headHeight = 5;
 
-		var titre = paper.text(100, 10, note + " " +  gamme.nom);
-		titre.attr("font-size","16");
+		//var titre = paper.text(100, 10, note + " " +  gamme.nom);
+		//titre.attr("font-size","16");
 		
 		// pour chaque demi-ton d'un octave
 	    for (var i = 0; i < 12; i++) {
 			var caseWidth = tabFrets[i].width;						
-			var caseX = 50 + tabFrets[i].pos;
+			var caseX = 20 + tabFrets[i].pos;
 			
 		  // pour chaque position de chaque corde
 	      for (var j = 0; j < positions.strings.length; j++) {	      		      		    		    	
@@ -279,3 +279,7 @@ var basse = new Instru(['G','D','A','E']);
 basse.renderTextPositions('G', mixolydien);*/
 /*console.log('\nbasse - pentaJaponais');
 basse.renderTextPositions('C', pentaJaponais);*/
+
+var selectNotes = ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
+var selectGammes = [mixolydien,dorien,pentaJaponais];
+var yourNote = 'C';

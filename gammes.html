@@ -1,18 +1,23 @@
-<html>
+<!doctype html>
+<html ng-app="gammesApp">
 <head>
 <style type="text/css">
 </style>
 </head>
 <body>
+<script src="C:\dev\workspace_techno\node_modules\angular\angular.min.js"></script>
 <script src="raphael-min.js"></script>
 <script src="gammes.js"></script>
+<script src="control.js"></script>
 <div id="movie"></div>
-<script>
-    guitare.renderRaphaelPositions('G', mixolydien,10,100);
-    guitare.renderRaphaelPositions('D', dorien,10,300);
-    /*basse.renderRaphaelPositions('G', mixolydien,10,100);
-    basse.renderRaphaelPositions('C', mixolydien,10,300);*/
-	basse.renderRaphaelPositions('C', pentaJaponais,10,500);
-</script>
+	<div ng-controller="gammesController">            
+		<select ng-model="yourNote" onchange="rendergamme()"
+          ng-options="selectNote for selectNote in selectNotes">
+  		</select>
+		<select ng-model="yourGamme" onchange="rendergamme()"
+          ng-options="selectGamme.nom for selectGamme in selectGammes">
+  		</select>
+		<h1>{{yourNote}} {{yourGamme.nom}}</h1>
+    </div>	
 </body>
 </html>
