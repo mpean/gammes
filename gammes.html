@@ -11,10 +11,10 @@
 <script src="control.js"></script>
 <div id="movie"></div>
 	<div ng-controller="gammesController">            
-		<select ng-model="yourNote" onchange="rendergamme()"
+		<select ng-model="yourNote" ng-change="rendergamme()"
           ng-options="selectNote for selectNote in selectNotes">
   		</select>
-		<select ng-model="yourGamme" onchange="rendergamme()"
+		<select ng-model="yourGamme" ng-change="rendergamme()"
           ng-options="selectGamme.nom for selectGamme in selectGammes">
   		</select>
 		<h1>{{yourNote}} {{yourGamme.nom}}</h1>
