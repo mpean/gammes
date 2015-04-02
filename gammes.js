@@ -204,13 +204,11 @@ var Instru = Class.extend({
 		var caseHeight = 20;
 		var caseBorderColor = "#000";
 		var pointRadius = 8;
-		var pointColor = "#72a0e5";
-		var pointToniqueColor = "#F00";
-		var pointBorderColor = "#797980";
-		var tabReperes = [3,5,7,9];
-		var repereRadius = 2;
-		var repereColor = "#000";
-		var repereBorderColor = "#FFF";	
+		var pointColor = "#0392cf";
+		var pointToniqueColor = "#ee4035";
+		var pointBorderColor = "#444444";
+		var textColor = "#FFFFFF";
+		var neckColor = "#f5f5f5";
 		var headHeight = 5;
 
 		//var titre = paper.text(100, 10, note + " " +  gamme.nom);
@@ -233,31 +231,35 @@ var Instru = Class.extend({
 
 			var neck = paper.rect(caseX, caseY, caseWidth, caseHeight);
 	        neck.attr("stroke", caseBorderColor);
-	        neck.attr("fill", "#f9fafa");
+	        neck.attr("fill", neckColor);
 
 	        var aPosition = positions.get(j,i);
 	        if (aPosition != null) {
 				var circle = paper.circle(pointX, pointY, pointRadius);					
 				var color = null;
 
-				if(aPosition.note.rang==1) color = "#F60505"; else  color = "#000000";
+				if(aPosition.note.rang==1) color = pointToniqueColor; else  color = pointColor;
 			
 				circle.attr("fill", color);					
 				circle.attr("stroke", pointBorderColor);					
 				var rang = paper.text(pointX, pointY-1, aPosition.note.interval);
-				rang.attr("fill", "#FFFFFF");				
+				rang.attr("fill", textColor);
 			};
 
 	      };
 	      // ajout des reperes de tranche
+				var tabReperes = [3,5,7,9];
+				var repereRadius = 2;
+				var repereColor = "#000";
+				var repereBorderColor = "#FFF";
 	      if (j == positions.strings.length) {
-			if (tabReperes.indexOf(i)>=0) {
-				var repere = paper.circle(pointX, pointY + ( caseHeight * 0.75 ) , repereRadius);
-				repere.attr("fill", repereColor);					
-				repere.attr("stroke", repereBorderColor);				
-		    };
+				 if (tabReperes.indexOf(i)>=0) {
+					 var repere = paper.circle(pointX, pointY + ( caseHeight * 0.75 ) , repereRadius);
+					 repere.attr("fill", repereColor);
+					 repere.attr("stroke", repereBorderColor);
+				  };
 	      };	      
-	   	};		
+	  };
 	}
 });
 
