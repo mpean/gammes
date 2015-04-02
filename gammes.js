@@ -103,7 +103,8 @@ var Gamme = Class.extend({
 			tabNotes.push(newNote);
 			positionNotes+=' '+currentNote+':'+(i+2);			
 		};
-		console.log(positionNotes);		
+		//console.log(positionNotes);
+		 this.positionNotes = positionNotes;
 		return tabNotes;
 	},
 	positions : function (){
@@ -143,10 +144,9 @@ var Instru = Class.extend({
 				var aPosition = new Position(currentNote,noteOnString,i);
 				aPositions.push(aPosition);
 			};
-			
-			//console.log(notesOnString);			
+		
 		};
-		//console.log(tabNotesOnStrings);
+		 //aPositions.renderRaphaelPart();
 		return aPositions;
 	},
 	calculateFrets : function(){
@@ -170,7 +170,7 @@ var Instru = Class.extend({
 			tabFret.push(aFret);
 		}
 		
-		console.log(tabFret);
+		//console.log(tabFret);
 		return tabFret;
 	},
 	renderTextPositions : function(note, gamme){
@@ -210,7 +210,7 @@ var Instru = Class.extend({
 		var textColor = "#FFFFFF";
 		var neckColor = "#f5f5f5";
 		var headHeight = 5;
-
+		
 		//var titre = paper.text(100, 10, note + " " +  gamme.nom);
 		//titre.attr("font-size","16");
 		
@@ -259,7 +259,7 @@ var Instru = Class.extend({
 					 repere.attr("stroke", repereBorderColor);
 				  };
 	      };	      
-	  };
+	  };		 
 	}
 });
 

@@ -9,7 +9,6 @@
 <script src="raphael-min.js"></script>
 <script src="gammes.js"></script>
 <script src="control.js"></script>
-<div id="movie"></div>
 	<div ng-controller="gammesController">            
 		<select ng-model="yourNote" ng-change="rendergamme()"
           ng-options="selectNote for selectNote in selectNotes">
@@ -17,7 +16,7 @@
 		<select ng-model="yourGamme" ng-change="rendergamme()"
           ng-options="selectGamme.nom for selectGamme in selectGammes">
   		</select>
-		<h1>{{yourNote}} {{yourGamme.nom}}</h1>
+		<p>{{yourGamme.positionNotes}}</p>		
     </div>	
 </body>
 </html>
