@@ -267,8 +267,11 @@ var Instru = Class.extend({
 		var height = 140;
 		var positions =  this.positions(note, gamme);			
 		var tabFrets = this.calculateFrets();
-		var paper = Raphael(x, y, width, height);	
-		//var tour = paper.rect(0, 0, width, height);
+		
+		var c = document.getElementById("myCanvas");
+		var ctx = c.getContext("2d");		
+		ctx.translate(0.5, 0.5);
+		//ctx.arc(95,50,40,0,2*Math.PI);		
 		
 		var stringNotewidth = 20;
 		var caseXWidth = 60;
@@ -282,10 +285,7 @@ var Instru = Class.extend({
 		var textColor = "#FFFFFF";
 		var neckColor = "#f5f5f5";
 		var headHeight = 5;
-		
-		//var titre = paper.text(100, 10, note + " " +  gamme.nom);
-		//titre.attr("font-size","16");
-		
+			
 		// pour chaque demi-ton d'un octave
 	    for (var i = 0; i < 12; i++) {
 			var caseWidth = tabFrets[i].width;						
@@ -299,23 +299,34 @@ var Instru = Class.extend({
 	    	var pointX = caseX + (caseWidth/2);
 	    	var pointY = caseY + (caseHeight/2);
 	    	
-	    	if (i == 0) var stringNote = paper.text(pointX - stringNotewidth, pointY, this.strings[j]);	
+				ctx.font="small-caps 10px Arial";
 
-			var neck = paper.rect(caseX, caseY, caseWidth, caseHeight);
-	        neck.attr("stroke", caseBorderColor);
-	        neck.attr("fill", neckColor);
+	    //	if (i == 0) var stringNote = paper.text(pointX - stringNotewidth, pointY, this.strings[j]);	
+				if (i == 0) ctx.strokeText(this.strings[j],pointX - stringNotewidth, pointY);
+		
+				ctx.beginPath();
+				ctx.fillStyle = neckColor;
+				//ctx.lineWidth=0.5;
+				ctx.rect(caseX, caseY, caseWidth, caseHeight);
+				ctx.stroke();
+				
 
 	        var aPosition = positions.get(j,i);
 	        if (aPosition != null) {
-				var circle = paper.circle(pointX, pointY, pointRadius);					
+				//var circle = paper.circle(pointX, pointY, pointRadius);					
+				  ctx.beginPath();
+				 ctx.arc(pointX, pointY-1,pointRadius,0,2*Math.PI);
+				  ctx.stroke();
 				var color = null;
 
 				if(aPosition.note.rang==1) color = pointToniqueColor; else  color = pointColor;
 			
-				circle.attr("fill", color);					
-				circle.attr("stroke", pointBorderColor);					
-				var rang = paper.text(pointX, pointY-1, aPosition.note.interval);
-				rang.attr("fill", textColor);
+				/*circle.attr("fill", color);					
+				circle.attr("stroke", pointBorderColor);					*/
+				//var rang = paper.text(pointX, pointY-1, aPosition.note.interval);
+				//rang.attr("fill", textColor);
+				   ctx.strokeText(aPosition.note.interval,pointX-3, pointY+3);
+				  
 			};
 
 	      };
@@ -326,12 +337,16 @@ var Instru = Class.extend({
 				var repereBorderColor = "#FFF";
 	      if (j == positions.strings.length) {
 				 if (tabReperes.indexOf(i)>=0) {
-					 var repere = paper.circle(pointX, pointY + ( caseHeight * 0.75 ) , repereRadius);
+					/* var repere = paper.circle(pointX, pointY + ( caseHeight * 0.75 ) , repereRadius);
 					 repere.attr("fill", repereColor);
-					 repere.attr("stroke", repereBorderColor);
+					 repere.attr("stroke", repereBorderColor);*/
+					 ctx.beginPath();
+				 ctx.arc(pointX, pointY + ( caseHeight * 0.75 ) , repereRadius,0,2*Math.PI);
+				  ctx.stroke();
 				  };
 	      };	      
 	  };		 
+		
 	}
 });
 

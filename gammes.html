@@ -7,8 +7,7 @@
 <body>
 <script src="angular.min.js"></script>
 <script src="raphael-min.js"></script>
-<script src="gammes.js"></script>
-<script src="control.js"></script>
+
 	<div ng-controller="gammesController">            
 		<select ng-model="yourNote" ng-change="rendergamme()"
           ng-options="selectNote for selectNote in selectNotes">
@@ -18,5 +17,11 @@
   		</select>
 		<p>{{yourGamme.positionNotes}}</p>		
     </div>	
+	
+	<canvas id="myCanvas" width="800" height="140" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+	<script src="gammes.js"></script>
+	<script src="control.js"></script>
 </body>
 </html>
