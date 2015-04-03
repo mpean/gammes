@@ -78,7 +78,7 @@ var Fret = Class.extend({
 // classe Gamme
 var Gamme = Class.extend({
 	notes : ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B','C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'],
-	intervalsGamme : ['R','2b','2','3b','3','4','5b','5','6','7b','7','R','2b','2','3b','3','4','5b','5','6','7b','R','2b','2'],
+	intervalsGamme : ['R','2b','2','3b','3','4','5b','5','6b','6','7','R','2b','2','3b','3','4','5b','5','6b','6','7'],
 
 	initialize : function(intervales, nom){
 		this.intervales = intervales;
@@ -191,6 +191,78 @@ var Instru = Class.extend({
 		};
 	},
 	renderRaphaelPositions : function(note, gamme,x,y){		
+		var width = 800;
+		var height = 140;
+		var positions =  this.positions(note, gamme);
+		var tabFrets = this.calculateFrets();
+		var paper = Raphael(x, y, width, height);
+		//var tour = paper.rect(0, 0, width, height);
+
+		var stringNotewidth = 20;
+		var caseXWidth = 60;
+		var case0Width = 20;
+		var caseHeight = 20;
+		var caseBorderColor = "#000";
+		var pointRadius = 8;
+		var pointColor = "#0392cf";
+		var pointToniqueColor = "#ee4035";
+		var pointBorderColor = "#444444";
+		var textColor = "#FFFFFF";
+		var neckColor = "#f5f5f5";
+		var headHeight = 5;
+
+		//var titre = paper.text(100, 10, note + " " +  gamme.nom);
+		//titre.attr("font-size","16");
+
+		// pour chaque demi-ton d'un octave
+	    for (var i = 0; i < 12; i++) {
+			var caseWidth = tabFrets[i].width;
+			var caseX = 20 + tabFrets[i].pos;
+
+		  // pour chaque position de chaque corde
+	      for (var j = 0; j < positions.strings.length; j++) {
+	    	if (i == 0) caseWidth = case0Width;
+
+	    	var caseY = headHeight+(j*caseHeight);
+	    	var pointX = caseX + (caseWidth/2);
+	    	var pointY = caseY + (caseHeight/2);
+
+	    	if (i == 0) var stringNote = paper.text(pointX - stringNotewidth, pointY, this.strings[j]);
+
+			var neck = paper.rect(caseX, caseY, caseWidth, caseHeight);
+	        neck.attr("stroke", caseBorderColor);
+	        neck.attr("fill", neckColor);
+
+	        var aPosition = positions.get(j,i);
+	        if (aPosition != null) {
+				var circle = paper.circle(pointX, pointY, pointRadius);
+				var color = null;
+
+				if(aPosition.note.rang==1) color = pointToniqueColor; else  color = pointColor;
+
+				circle.attr("fill", color);
+				circle.attr("stroke", pointBorderColor);
+				var rang = paper.text(pointX, pointY-1, aPosition.note.interval);
+				rang.attr("fill", textColor);
+			};
+
+	      };
+	      // ajout des reperes de tranche
+				var tabReperes = [3,5,7,9];
+				var repereRadius = 2;
+				var repereColor = "#000";
+				var repereBorderColor = "#FFF";
+	      if (j == positions.strings.length) {
+				 if (tabReperes.indexOf(i)>=0) {
+					 var repere = paper.circle(pointX, pointY + ( caseHeight * 0.75 ) , repereRadius);
+					 repere.attr("fill", repereColor);
+					 repere.attr("stroke", repereBorderColor);
+				  };
+	      };
+	  };
+	}
+	,
+	renderCanvasPositions : function(note, gamme,x,y){
 		var width = 800;
 		var height = 140;
 		var positions =  this.positions(note, gamme);			
