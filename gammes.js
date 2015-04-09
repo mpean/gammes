@@ -229,12 +229,14 @@ var Instru = Class.extend({
 
 	    	if (i == 0) var stringNote = paper.text(pointX - stringNotewidth, pointY, this.strings[j]);
 
+				// dessin des cases
 			var neck = paper.rect(caseX, caseY, caseWidth, caseHeight);
 	        neck.attr("stroke", caseBorderColor);
 	        neck.attr("fill", neckColor);
 
-	        var aPosition = positions.get(j,i);
-	        if (aPosition != null) {
+				// desssin des positions
+				var aPosition = positions.get(j,i);
+				if (aPosition != null) {
 				var circle = paper.circle(pointX, pointY, pointRadius);
 				var color = null;
 
@@ -242,6 +244,8 @@ var Instru = Class.extend({
 
 				circle.attr("fill", color);
 				circle.attr("stroke", pointBorderColor);
+
+				// texte de la pososition
 				var rang = paper.text(pointX, pointY-1, aPosition.note.interval);
 				rang.attr("fill", textColor);
 			};
@@ -271,7 +275,6 @@ var Instru = Class.extend({
 		var c = document.getElementById("myCanvas");
 		var ctx = c.getContext("2d");		
 		ctx.translate(0.5, 0.5);
-		//ctx.arc(95,50,40,0,2*Math.PI);		
 		
 		var stringNotewidth = 20;
 		var caseXWidth = 60;
@@ -297,52 +300,57 @@ var Instru = Class.extend({
 
 	    	var caseY = headHeight+(j*caseHeight);
 	    	var pointX = caseX + (caseWidth/2);
-	    	var pointY = caseY + (caseHeight/2);
+	    	var pointY = caseY + (caseHeight/2)+1;
 	    	
 				ctx.font="small-caps 10px Arial";
-
-	    //	if (i == 0) var stringNote = paper.text(pointX - stringNotewidth, pointY, this.strings[j]);	
-				if (i == 0) ctx.strokeText(this.strings[j],pointX - stringNotewidth, pointY);
+				ctx.fillStyle=caseBorderColor;
+				if (i == 0) ctx.fillText(this.strings[j],pointX - stringNotewidth -2, pointY +1);
 		
+				// dessin des cases
 				ctx.beginPath();
 				ctx.fillStyle = neckColor;
-				//ctx.lineWidth=0.5;
+				ctx.strokeStyle=caseBorderColor;
 				ctx.rect(caseX, caseY, caseWidth, caseHeight);
+				ctx.fill();
 				ctx.stroke();
 				
 
-	        var aPosition = positions.get(j,i);
-	        if (aPosition != null) {
-				//var circle = paper.circle(pointX, pointY, pointRadius);					
-				  ctx.beginPath();
-				 ctx.arc(pointX, pointY-1,pointRadius,0,2*Math.PI);
-				  ctx.stroke();
-				var color = null;
+				// desssin des positions
+	        	var aPosition = positions.get(j,i);
+				if (aPosition != null) {
 
-				if(aPosition.note.rang==1) color = pointToniqueColor; else  color = pointColor;
-			
-				/*circle.attr("fill", color);					
-				circle.attr("stroke", pointBorderColor);					*/
-				//var rang = paper.text(pointX, pointY-1, aPosition.note.interval);
-				//rang.attr("fill", textColor);
-				   ctx.strokeText(aPosition.note.interval,pointX-3, pointY+3);
+				  	ctx.beginPath();
+				  	ctx.arc(pointX, pointY-1,pointRadius,0,2*Math.PI);
+
+					// definition de la couleur de la position
+					var color = null;
+					if(aPosition.note.rang==1) color = pointToniqueColor; else  color = pointColor;
+
+					ctx.fillStyle = color;
+					ctx.strokeStyle = pointBorderColor;
+					ctx.stroke();
+					ctx.fill();
+
+					// texte de la position
+					ctx.fillStyle=textColor;
+				   ctx.fillText(aPosition.note.interval,pointX-3.5, pointY+2);
 				  
 			};
 
 	      };
 	      // ajout des reperes de tranche
-				var tabReperes = [3,5,7,9];
-				var repereRadius = 2;
-				var repereColor = "#000";
-				var repereBorderColor = "#FFF";
+			var tabReperes = [3,5,7,9];
+			var repereRadius = 1.5;
+			var repereColor = "#000";
+			var repereBorderColor = "#FFF";
 	      if (j == positions.strings.length) {
 				 if (tabReperes.indexOf(i)>=0) {
-					/* var repere = paper.circle(pointX, pointY + ( caseHeight * 0.75 ) , repereRadius);
-					 repere.attr("fill", repereColor);
-					 repere.attr("stroke", repereBorderColor);*/
-					 ctx.beginPath();
-				 ctx.arc(pointX, pointY + ( caseHeight * 0.75 ) , repereRadius,0,2*Math.PI);
-				  ctx.stroke();
+					ctx.beginPath();
+					ctx.strokeStyle=repereBorderColor;
+					ctx.fillStyle = repereColor;
+					ctx.arc(pointX, pointY + ( caseHeight * 0.75 ) , repereRadius,0,2*Math.PI);
+					ctx.stroke();
+					ctx.fill();
 				  };
 	      };	      
 	  };		 
