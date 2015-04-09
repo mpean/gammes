@@ -6,7 +6,6 @@ angular.module('gammesApp', [])
 	$scope.selectGammes = selectGammes;
  
    $scope.rendergamme = function() {
-     guitare.renderRaphaelPositions($scope.yourNote, $scope.yourGamme,10,300);
 	  guitare.renderCanvasPositions($scope.yourNote, $scope.yourGamme,10,100);
     };
 	  
