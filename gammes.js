@@ -204,7 +204,8 @@ var Instru = Class.extend({
 		var caseXWidth = 60;
 		var case0Width = 20;
 		var caseHeight = 20;
-		var caseBorderColor = "#000";
+		var caseBorderColor = "#8b9dc3";
+		var stringColor = "#000";
 		var pointRadius = 8;
 		var pointColor = "#0392cf";
 		var pointToniqueColor = "#ee4035";
@@ -212,7 +213,11 @@ var Instru = Class.extend({
 		var textColor = "#FFFFFF";
 		var neckColor = "#f5f5f5";
 		var headHeight = 5;
-			
+		var tabReperes = [3,5,7,9];
+		var repereRadius = 6;
+		var repereColor = "#a19c9c";
+		var repereBorderColor = "#FFF";
+
 		// pour chaque demi-ton d'un octave
 	    for (var i = 0; i < 12; i++) {
 			var caseWidth = tabFrets[i].width;						
@@ -220,29 +225,87 @@ var Instru = Class.extend({
 			
 		  // pour chaque position de chaque corde
 	      for (var j = 0; j < positions.strings.length; j++) {	      		      		    		    	
-	    	if (i == 0) caseWidth = case0Width;
+				var caseY = headHeight+(j*caseHeight);
+				var pointX = caseX + (caseWidth/2);
+				var pointY = caseY + (caseHeight/2)+1;
 
-	    	var caseY = headHeight+(j*caseHeight);
-	    	var pointX = caseX + (caseWidth/2);
-	    	var pointY = caseY + (caseHeight/2)+1;
-	    	
-				ctx.font="small-caps 10px Arial";
-				ctx.fillStyle=caseBorderColor;
+				if (i == 0) {
+					caseWidth = case0Width;
+
+					//tete de manche
+					ctx.beginPath();
+					ctx.moveTo(caseX, caseY);
+					ctx.lineTo(caseX ,caseY + caseHeight);
+					ctx.stroke();
+				}
+
+				if (j == 0) {
+					// bord du manche
+					ctx.beginPath();
+					ctx.moveTo(caseX, caseY);
+					ctx.lineTo(caseX + caseWidth ,caseY);
+					ctx.stroke();
+				}
+
+				if (j == positions.strings.length-1) {
+					// bord du manche
+					ctx.beginPath();
+					ctx.moveTo(caseX, caseY + caseHeight);
+					ctx.lineTo(caseX + caseWidth ,caseY + caseHeight);
+					ctx.stroke();
+				}
+
+				ctx.beginPath();
+				ctx.font="10px Arial";
+				ctx.fillStyle=stringColor;
 				if (i == 0) ctx.fillText(this.strings[j],pointX - stringNotewidth -2, pointY +1);
 		
 				// dessin des cases
 				ctx.beginPath();
 				ctx.fillStyle = neckColor;
-				ctx.strokeStyle=caseBorderColor;
-				ctx.rect(caseX, caseY, caseWidth, caseHeight);
-				ctx.fill();
+				ctx.strokeStyle = "#8b9dc3";
+				ctx.fillRect(caseX, caseY, caseWidth, caseHeight);
+				ctx.strokeStyle=stringColor;
+
+				//frette
+				ctx.beginPath();
+				ctx.moveTo(caseX + caseWidth, caseY);
+				ctx.lineTo(caseX + caseWidth ,caseY + caseHeight);
 				ctx.stroke();
 				
+				// corde
+				ctx.beginPath();
+				ctx.moveTo(caseX, caseY + caseHeight/2);
+				ctx.lineTo(caseX + caseWidth ,caseY + caseHeight/2);
+				ctx.stroke();
+
+				// ajout des reperes du manche
+				if (j == (positions.strings.length /2)-1 ) {
+					 if (tabReperes.indexOf(i)>=0) {
+						ctx.beginPath();
+						ctx.strokeStyle=repereBorderColor;
+						ctx.fillStyle = repereColor;
+						ctx.arc(pointX, caseY +caseHeight , repereRadius,0,2*Math.PI);
+						ctx.stroke();
+						ctx.fill();
+					  };
+				};
+
+				// ajout des reperes du manche
+				if (j == (positions.strings.length /2) ) {
+					 if (tabReperes.indexOf(i)>=0) {
+						ctx.beginPath();
+						ctx.strokeStyle=repereBorderColor;
+						ctx.fillStyle = repereColor;
+						ctx.arc(pointX, caseY , repereRadius,0,Math.PI);
+						ctx.stroke();
+						ctx.fill();
+					  };
+				};
 
 				// desssin des positions
 	        	var aPosition = positions.get(j,i);
 				if (aPosition != null) {
-
 				  	ctx.beginPath();
 				  	ctx.arc(pointX, pointY-1,pointRadius,0,2*Math.PI);
 
@@ -258,25 +321,11 @@ var Instru = Class.extend({
 					// texte de la position
 					ctx.fillStyle=textColor;
 				   ctx.fillText(aPosition.note.interval,pointX-3.5, pointY+2);
-				  
-			};
+				};
 
 	      };
-	      // ajout des reperes de tranche
-			var tabReperes = [3,5,7,9];
-			var repereRadius = 1.5;
-			var repereColor = "#000";
-			var repereBorderColor = "#FFF";
-	      if (j == positions.strings.length) {
-				 if (tabReperes.indexOf(i)>=0) {
-					ctx.beginPath();
-					ctx.strokeStyle=repereBorderColor;
-					ctx.fillStyle = repereColor;
-					ctx.arc(pointX, pointY + ( caseHeight * 0.75 ) , repereRadius,0,2*Math.PI);
-					ctx.stroke();
-					ctx.fill();
-				  };
-	      };	      
+
+
 	  };		 
 		
 	}
