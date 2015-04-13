@@ -320,7 +320,9 @@ var Instru = Class.extend({
 
 					// texte de la position
 					ctx.fillStyle=textColor;
-				   ctx.fillText(aPosition.note.interval,pointX-3.5, pointY+2);
+					var intervalle = aPosition.note.interval;
+					var intervalleX = pointX -= 3*intervalle.length;
+				   ctx.fillText(aPosition.note.interval,intervalleX, pointY+2);
 				};
 
 	      };
