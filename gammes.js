@@ -285,6 +285,7 @@ var Instru = Class.extend({
 
 var mixolydien = new Gamme([2,2,1,2,2,1], "mixolydien");
 var dorien = new Gamme([2,1,2,2,2,1], "dorien");
+var aeolien = new Gamme([2,1,2,2,1,2], "aeolien");
 var pentaJaponais = new Gamme([2,1,4,2], "pentaJaponais");
 
 
@@ -302,5 +303,5 @@ basse.renderTextPositions('G', mixolydien);*/
 basse.renderTextPositions('C', pentaJaponais);*/
 
 var selectNotes = ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
-var selectGammes = [mixolydien,dorien,pentaJaponais];
+var selectGammes = [mixolydien,dorien,aeolien,pentaJaponais];
 var yourNote = 'C';
