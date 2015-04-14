@@ -341,7 +341,10 @@ var Instru = Class.extend({
 var mixolydien = new Gamme([2,2,1,2,2,1], "mixolydien");
 var dorien = new Gamme([2,1,2,2,2,1], "dorien");
 var aeolien = new Gamme([2,1,2,2,1,2], "aeolien");
-var pentaJaponais = new Gamme([2,1,4,2], "pentaJaponais");
+var pentaMajeure = new Gamme([2,2,3,2], "penta majeure");
+var pentaMineure = new Gamme([3,2,2,3], "penta mineure");
+var pentaJaponais = new Gamme([2,1,4,2], "penta Japonais");
+
 
 
 var guitare = new Instru(['E','B','G','D','A','E'],"guitare");
@@ -358,7 +361,7 @@ basse.renderTextPositions('G', mixolydien);*/
 basse.renderTextPositions('C', pentaJaponais);*/
 
 var selectNotes = ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
-var selectGammes = [mixolydien,dorien,aeolien,pentaJaponais];
+var selectGammes = [mixolydien,dorien,aeolien,pentaMajeure,pentaMineure,pentaJaponais];
 var selectIntruments = [guitare,basse];
 var yourNote = 'C';
 var yourGamme = mixolydien;
