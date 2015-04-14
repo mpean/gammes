@@ -193,9 +193,10 @@ var Instru = Class.extend({
 	},
 	renderCanvasPositions : function(note, gamme,x,y){
 		var width = 800;
-		var height = 140;
+		var height = 150;
 		var positions =  this.positions(note, gamme);			
 		var tabFrets = this.calculateFrets();
+		var jRepere =  Math.round(positions.strings.length /2);
 		
 		var c = document.getElementById("myCanvas");
 		var ctx = c.getContext("2d");		
@@ -284,7 +285,7 @@ var Instru = Class.extend({
 				ctx.stroke();
 
 				// ajout des reperes du manche
-				if (j == (positions.strings.length /2)-1 ) {
+				if (j == jRepere-1 ) {
 					 if (tabReperes.indexOf(i)>=0) {
 						ctx.beginPath();
 						ctx.strokeStyle=repereBorderColor;
@@ -295,8 +296,9 @@ var Instru = Class.extend({
 					  };
 				};
 
+
 				// ajout des reperes du manche
-				if (j == (positions.strings.length /2) ) {
+				if (j == jRepere ) {
 					 if (tabReperes.indexOf(i)>=0) {
 						ctx.beginPath();
 						ctx.strokeStyle=repereBorderColor;
