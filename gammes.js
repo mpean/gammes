@@ -116,8 +116,9 @@ var Gamme = Class.extend({
 
 // Classe Instru
 var Instru = Class.extend({
-	initialize : function(strings){
+	initialize : function(strings,nom){
 		this.strings = strings;
+		this.nom = nom;
 	},
 	print : function(){
 		console.log(this.strings);
@@ -198,25 +199,26 @@ var Instru = Class.extend({
 		
 		var c = document.getElementById("myCanvas");
 		var ctx = c.getContext("2d");		
+		ctx.clearRect ( 0 , 0 , width, height );
 		//ctx.translate(0.5, 0.5);
 		
 		var stringNotewidth = 20;
 		var caseXWidth = 60;
 		var case0Width = 20;
 		var caseHeight = 20;
-		var caseBorderColor = "#8b9dc3";
+		var caseBorderColor = "#000";
 		var stringColor = "#000";
 		var pointRadius = 8;
 		var pointColor = "#0392cf";
 		var pointToniqueColor = "#ee4035";
 		var pointBorderColor = "#444444";
-		var textColor = "#FFFFFF";
+		var textColor = "#000";
 		var neckColor = "#f5f5f5";
 		var headHeight = 5;
 		var tabReperes = [3,5,7,9];
 		var repereRadius = 6;
 		var repereColor = "#a19c9c";
-		var repereBorderColor = "#FFF";
+		var repereBorderColor = "#FFFFFF";
 
 		// pour chaque demi-ton d'un octave
 	    for (var i = 0; i < 12; i++) {
@@ -242,6 +244,7 @@ var Instru = Class.extend({
 				if (j == 0) {
 					// bord du manche
 					ctx.beginPath();
+					ctx.strokeStyle = caseBorderColor;
 					ctx.moveTo(caseX, caseY);
 					ctx.lineTo(caseX + caseWidth ,caseY);
 					ctx.stroke();
@@ -249,6 +252,7 @@ var Instru = Class.extend({
 
 				if (j == positions.strings.length-1) {
 					// bord du manche
+					ctx.strokeStyle = caseBorderColor;
 					ctx.beginPath();
 					ctx.moveTo(caseX, caseY + caseHeight);
 					ctx.lineTo(caseX + caseWidth ,caseY + caseHeight);
@@ -263,7 +267,7 @@ var Instru = Class.extend({
 				// dessin des cases
 				ctx.beginPath();
 				ctx.fillStyle = neckColor;
-				ctx.strokeStyle = "#8b9dc3";
+				ctx.strokeStyle = caseBorderColor;
 				ctx.fillRect(caseX, caseY, caseWidth, caseHeight);
 				ctx.strokeStyle=stringColor;
 
@@ -340,14 +344,14 @@ var aeolien = new Gamme([2,1,2,2,1,2], "aeolien");
 var pentaJaponais = new Gamme([2,1,4,2], "pentaJaponais");
 
 
-var guitare = new Instru(['E','B','G','D','A','E']);
+var guitare = new Instru(['E','B','G','D','A','E'],"guitare");
 /*console.log('Instru - mixolydien');
 Instru.renderTextPositions('G', mixolydien);*/
 /*console.log('\nInstru - pentaJaponais');
 Instru.renderTextPositions('C', pentaJaponais);*/
 
 
-var basse = new Instru(['G','D','A','E']);
+var basse = new Instru(['G','D','A','E'], "basse");
 /*console.log('\nbasse - mixolydien');
 basse.renderTextPositions('G', mixolydien);*/
 /*console.log('\nbasse - pentaJaponais');
@@ -355,4 +359,8 @@ basse.renderTextPositions('C', pentaJaponais);*/
 
 var selectNotes = ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
 var selectGammes = [mixolydien,dorien,aeolien,pentaJaponais];
+var selectIntruments = [guitare,basse];
 var yourNote = 'C';
+var yourGamme = mixolydien;
+var yourIntrument = guitare;
+

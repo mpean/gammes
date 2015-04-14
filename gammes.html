@@ -14,6 +14,9 @@
 		<select ng-model="yourGamme" ng-change="rendergamme()"
           ng-options="selectGamme.nom for selectGamme in selectGammes">
   		</select>
+		<select ng-model="yourInstrument" ng-change="rendergamme()"
+          ng-options="selectIntrument.nom for selectIntrument in selectIntruments">
+  		</select>
 		<p>{{yourGamme.positionNotes}}</p>		
     </div>	
 	
