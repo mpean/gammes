@@ -358,6 +358,7 @@ Instru.renderTextPositions('C', pentaJaponais);*/
 
 
 var basse4 = new Instru(['G','D','A','E'], "basse 4");
+var basse4bead = new Instru(['D','A','E','B'], "basse 4 BEAD");
 var basse5 = new Instru(['G','D','A','E','B'], "basse 5");
 /*console.log('\nbasse - mixolydien');
 basse.renderTextPositions('G', mixolydien);*/
@@ -366,7 +367,7 @@ basse.renderTextPositions('C', pentaJaponais);*/
 
 var selectNotes = ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
 var selectGammes = [mixolydien,dorien,aeolien,pentaMajeure,pentaMineure,pentaJaponais,arabis];
-var selectIntruments = [guitare6,guitare7,basse4,basse5];
+var selectIntruments = [guitare6,guitare7,basse4,basse4bead,basse5];
 var yourNote = 'C';
 var yourGamme = mixolydien;
 var yourIntrument = guitare6;
